@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tensorware Technologies Pvt Ltd</title>
+  <meta name="description"
+    content="Tensorware Technologies – Intelligent software solutions in AI, cloud, and enterprise tech for tomorrow's businesses." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              yellow: 'var(--c-yellow)',
+              navy: 'var(--c-navy)',
+              dark: 'var(--c-dark)',
+              card: 'var(--c-card)',
+              muted: 'var(--c-muted)',
+              border: 'var(--c-border)',
+            }
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ── CSS theme variables ── */
+    :root {
+      --c-yellow: #5AC1F1;
+      --c-navy: #0A0F2C;
+      --c-dark: #060A1A;
+      --c-card: #0E1430;
+      --c-muted: #8892AA;
+      --c-border: #1C2444;
+      --c-bg: #060A1A;
+      --c-text: #ffffff;
+      --c-glass: rgba(6, 10, 26, .82);
+      --c-grad1: #ffffff;
+      --c-inputbg: #0A0F2C;
+      --c-whyus: linear-gradient(180deg, #060A1A 0%, #0A0F2C 100%);
+    }
+
+    /* ── LIGHT overrides ── */
+    html.light {
+      --c-yellow: #2B88D9;
+      --c-navy: #1E2A5E;
+      --c-dark: #f0f2fa;
+      --c-card: #ffffff;
+      --c-muted: #556080;
+      --c-border: #D0D5E8;
+      --c-bg: #f0f2fa;
+      --c-text: #0A0F2C;
+      --c-glass: rgba(240, 242, 250, .90);
+      --c-grad1: #0A0F2C;
+      --c-inputbg: #f8f9fc;
+      --c-whyus: linear-gradient(180deg, #f0f2fa 0%, #e4e8f5 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text);
+      font-family: 'Inter', sans-serif;
+      transition: background-color .35s ease, color .35s ease;
+    }
+
+    /* ── scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── navbar glass ── */
+    .glass {
+      background: var(--c-glass);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--c-border);
+      transition: background .35s ease;
+    }
+
+    /* ── blue brand accent line ── */
+    .accent-line {
+      width: 40px;
+      height: 3px;
+      background: var(--c-yellow);
+      margin-bottom: 16px;
+    }
+
+    /* ── card hover ── */
+    .product-card {
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--c-yellow) !important;
+      box-shadow: 0 0 28px rgba(90, 193, 241, .15);
+    }
+
+    /* ── hero gradient text ── */
+    .grad-text {
+      background: linear-gradient(135deg, var(--c-grad1) 30%, var(--c-yellow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── input focus ── */
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--c-yellow) !important;
+      box-shadow: 0 0 0 3px rgba(90, 193, 241, .18);
+    }
+
+    /* ── inputs background in light mode ── */
+    input,
+    textarea,
+    select {
+      background-color: var(--c-inputbg) !important;
+      color: var(--c-text) !important;
+    }
+
+    /* ── mobile menu ── */
+    #mobile-menu {
+      transition: max-height .35s ease, opacity .35s ease;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    #mobile-menu.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    /* ── tag chip ── */
+    .chip {
+      display: inline-block;
+      background: rgba(90, 193, 241, .12);
+      color: var(--c-yellow);
+      border: 1px solid rgba(90, 193, 241, .3);
+      border-radius: 4px;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: 3px 10px;
+      text-transform: uppercase;
+    }
+
+    /* ── stat counter ── */
+    .stat-num {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--c-yellow);
+    }
+
+    /* ── theme toggle icon button ── */
+    .theme-btn {
+      width: 36px;
+      height: 36px;
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .25s ease, background .25s ease;
+      color: var(--c-yellow);
+      flex-shrink: 0;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--c-yellow);
+    }
+
+    /* sun visible in dark, moon visible in light */
+    .theme-btn .t-sun {
+      display: block;
+    }
+
+    .theme-btn .t-moon {
+      display: none;
+    }
+
+    html.light .theme-btn .t-sun {
+      display: none;
+    }
+
+    html.light .theme-btn .t-moon {
+      display: block;
+    }
+
+    /* ── LIGHT MODE text fixes ── */
+    /* Make generic white text dark in light mode */
+    html.light body {
+      color: #0d1a3a !important;
+    }
+
+    html.light h1,
+    html.light h2,
+    html.light h3,
+    html.light h4 {
+      color: #0d1a3a !important;
+    }
+
+    /* headings / spans with explicit text-white → dark */
+    html.light .text-white {
+      color: #0d1a3a !important;
+    }
+
+    /* Restore intentional white texts (buttons on dark bg) */
+    html.light .bg-brand-navy.text-white,
+    html.light .bg-brand-navy>.text-white,
+    html.light a.bg-brand-navy,
+    html.light a.bg-brand-navy *,
+    html.light .bg-brand-yellow,
+    html.light .bg-brand-yellow * {
+      color: #ffffff !important;
+    }
+
+    /* nav hover targets in light */
+    html.light .hover\:text-white:hover {
+      color: #0d1a3a !important;
+    }
+
+    /* muted text in light should stay muted, not white */
+    html.light .text-brand-muted {
+      color: #556080 !important;
+    }
+
+    /* italic testimonial quote */
+    html.light .italic {
+      color: #1a2a50 !important;
+    }
+
+    /* footer bottom bar */
+    html.light footer p {
+      color: #556080;
+    }
+
+    /* section label paragraphs */
+    html.light section p:not(.text-brand-muted) {
+      color: #1a2a50;
+    }
+
+    /* light mode — section bg overrides */
+    html.light [style*="background:linear-gradient"] {
+      background: var(--c-whyus) !important;
+    }
+
+    html.light .product-card {
+      box-shadow: 0 1px 6px rgba(0, 0, 0, .08);
+    }
+
+    html.light .bg-brand-card {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+    }
+
+    html.light #hero-orb {
+      background: radial-gradient(circle, rgba(43, 136, 217, .10) 0%, transparent 70%) !important;
+    }
+  </style>
+</head>
+
+<body class="text-white antialiased">
+
+  <!-- ═══════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-3">
+        <img src="logo.png" alt="Tensorware Logo" class="w-9 h-9 object-contain rounded-lg">
+        <div>
+          <p class="font-bold text-sm leading-none tracking-wide">TENSORWARE</p>
+          <p class="text-brand-muted text-[10px] tracking-widest uppercase leading-none mt-0.5">Technologies Pvt Ltd</p>
+        </div>
+      </a>
+
+      <!-- Desktop nav -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-muted">
+        <li><a href="index.html#about" class="hover:text-white transition-colors">About</a></li>
+        <!-- <li><a href="index.html#products" class="hover:text-white transition-colors">Products</a></li> -->
+        <li><a href="team.html" class="hover:text-white transition-colors">Team</a></li>
+        <li><a href="index.html#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+        <li><a href="careers.html" class="hover:text-white transition-colors">Careers</a></li>
+        <li><a href="index.html#contact" class="hover:text-white transition-colors">Contact</a></li>
+      </ul>
+
+      <!-- Theme toggle + CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        <!-- Sun / Moon toggle -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Switch theme">
+          <!-- Sun (dark mode) -->
+          <svg class="t-sun w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4" />
+            <path stroke-linecap="round"
+              d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <!-- Moon (light mode) -->
+          <svg class="t-moon w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+        <a href="#contact"
+          class="inline-flex items-center gap-2 bg-brand-yellow text-white font-bold text-sm px-5 py-2.5 hover:bg-blue-400 transition-colors">
+          Get in Touch
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Burger + mobile theme toggle -->
+      <div class="md:hidden flex items-center gap-3">
+        <button id="theme-toggle-mobile" class="theme-btn" aria-label="Toggle theme" title="Switch theme">
+          <svg class="t-sun w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4" />
+            <path stroke-linecap="round"
+              d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <svg class="t-moon w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+        <button id="burger" class="text-brand-muted hover:text-white transition-colors" aria-label="Menu">
+          <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden border-t border-brand-border px-6 py-0">
+      <ul class="flex flex-col gap-4 py-5 text-sm font-medium text-brand-muted">
+        <li><a href="index.html#about" class="hover:text-white transition-colors block">About</a></li>
+        <!-- <li><a href="index.html#products" class="hover:text-white transition-colors block">Products</a></li> -->
+        <li><a href="team.html" class="hover:text-white transition-colors block">Our Team</a></li>
+        <li><a href="index.html#pricing" class="hover:text-white transition-colors block">Pricing</a></li>
+        <li><a href="careers.html" class="hover:text-white transition-colors block">Careers</a></li>
+        <li><a href="index.html#contact" class="hover:text-white transition-colors block">Contact</a></li>
+        <li><a href="#contact"
+            class="bg-brand-yellow text-white font-bold px-4 py-2.5 inline-block hover:bg-blue-400 transition-colors">Get
+            in Touch</a></li>
+      </ul>
+    </div>
+  </nav>
+  <section class="pt-32 pb-20 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="mb-16 mt-10">
+        <h1 class="text-4xl md:text-5xl font-black mb-4">Legal Information</h1>
+        <p class="text-brand-muted text-lg">Please read our policies carefully.</p>
+        <div class="accent-line mt-6"></div>
+      </div>
+
+      <!-- Privacy Policy -->
+      <div id="privacy" class="mb-16 scroll-mt-32">
+        <h2 class="text-2xl font-bold mb-4 text-brand-yellow">Privacy Policy</h2>
+        <div class="text-brand-muted space-y-4 text-sm leading-relaxed">
+          <p>At Tensorware Technologies Pvt Ltd, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+          <p>We may collect personal identification information from Users in a variety of ways, including, but not limited to, when Users visit our site, fill out a form, and in connection with other activities, services, features or resources we make available.</p>
+          <p>We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of your personal information, username, password, transaction information and data stored on our Site.</p>
+          <p>We do not sell, trade, or rent Users personal identification information to others.</p>
+        </div>
+      </div>
+
+      <!-- Terms of Service -->
+      <div id="terms" class="mb-16 scroll-mt-32">
+        <h2 class="text-2xl font-bold mb-4 text-brand-yellow">Terms of Service</h2>
+        <div class="text-brand-muted space-y-4 text-sm leading-relaxed">
+          <p>By accessing and using Tensorware Technologies services, you accept and agree to be bound by the terms and provision of this agreement. In addition, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services.</p>
+          <p>All content included on this site, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of Tensorware Technologies or its content suppliers and protected by international copyright laws.</p>
+          <p>We reserve the right to modify these terms from time to time at our sole discretion. Therefore, you should review these page periodically. Your continued use of the Website or our service after any such change constitutes your acceptance of the new Terms.</p>
+        </div>
+      </div>
+
+      <!-- Cookie Policy -->
+      <div id="cookies" class="mb-16 scroll-mt-32">
+        <h2 class="text-2xl font-bold mb-4 text-brand-yellow">Cookie Policy</h2>
+        <div class="text-brand-muted space-y-4 text-sm leading-relaxed">
+          <p>Our website may use "cookies" to enhance User experience. User's web browser places cookies on their hard drive for record-keeping purposes and sometimes to track information about them.</p>
+          <p>You may choose to set your web browser to refuse cookies, or to alert you when cookies are being sent. If they do so, note that some parts of the Site may not function properly.</p>
+        </div>
+      </div>
+
+      <!-- Refund Policy -->
+      <div id="refund" class="mb-16 scroll-mt-32">
+        <h2 class="text-2xl font-bold mb-4 text-brand-yellow">Refund Policy</h2>
+        <div class="text-brand-muted space-y-4 text-sm leading-relaxed">
+          <p>We strive to deliver the highest quality software and services. Due to the custom nature of our development and consulting services, refunds are generally processed according to the terms specified in your individual contract or statement of work.</p>
+          <p>For our standard pricing plans, if you are not satisfied within the first 14 days of the project commencement, please contact us to discuss a partial or full refund depending on the work completed. Any requests for a refund after this period will be evaluated on a case-by-case basis.</p>
+          <p>Domain registration, third-party hosting fees, and any other external costs incurred on your behalf are strictly non-refundable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer class="border-t border-brand-border">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand col -->
+      <div class="lg:col-span-1">
+        <a href="#hero" class="flex items-center gap-3 mb-5">
+          <img src="logo.png" alt="Tensorware Logo" class="w-9 h-9 object-contain">
+          <div>
+            <p class="font-bold text-sm leading-none tracking-wide">TENSORWARE</p>
+            <p class="text-brand-muted text-[10px] tracking-widest uppercase leading-none mt-0.5">Technologies Pvt Ltd
+            </p>
+          </div>
+        </a>
+        <p class="text-brand-muted text-xs leading-relaxed mb-5">Building tomorrow's software — one intelligent
+          system at a time.</p>
+        <!-- Social icons -->
+        <div class="flex gap-3">
+          <a href="https://www.linkedin.com/company/tensorwaretech/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            class="w-8 h-8 border border-brand-border flex items-center justify-center text-brand-muted hover:border-brand-yellow hover:text-brand-yellow transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter / X"
+            class="w-8 h-8 border border-brand-border flex items-center justify-center text-brand-muted hover:border-brand-yellow hover:text-brand-yellow transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+          <a href="#" aria-label="GitHub"
+            class="w-8 h-8 border border-brand-border flex items-center justify-center text-brand-muted hover:border-brand-yellow hover:text-brand-yellow transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Products col -->
+      <!-- <div>
+        <p class="font-bold text-sm mb-5 uppercase tracking-widest">Products</p>
+        <ul class="space-y-3 text-brand-muted text-sm">
+          <li><a href="#products" class="hover:text-brand-yellow transition-colors">TensorMind AI</a></li>
+          <li><a href="#products" class="hover:text-brand-yellow transition-colors">CloudStack Pro</a></li>
+          <li><a href="#products" class="hover:text-brand-yellow transition-colors">DataPulse</a></li>
+          <li><a href="#products" class="hover:text-brand-yellow transition-colors">SecureVault</a></li>
+          <li><a href="#products" class="hover:text-brand-yellow transition-colors">DevForge</a></li>
+        </ul>
+      </div> -->
+
+      <!-- Company col -->
+      <div>
+        <p class="font-bold text-sm mb-5 uppercase tracking-widest">Company</p>
+        <ul class="space-y-3 text-brand-muted text-sm">
+          <li><a href="index.html#about" class="hover:text-brand-yellow transition-colors">About Us</a></li>
+          <li><a href="team.html" class="hover:text-brand-yellow transition-colors">Our Team</a></li>
+          <li><a href="careers.html" class="hover:text-brand-yellow transition-colors">Careers</a></li>
+          <li><a href="index.html#why-us" class="hover:text-brand-yellow transition-colors">Why Tensorware</a></li>
+          <li><a href="index.html#contact" class="hover:text-brand-yellow transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal col -->
+      <div>
+        <p class="font-bold text-sm mb-5 uppercase tracking-widest">Legal</p>
+        <ul class="space-y-3 text-brand-muted text-sm">
+          <li><a href="#" class="hover:text-brand-yellow transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-brand-yellow transition-colors">Terms of Service</a></li>
+          <li><a href="#" class="hover:text-brand-yellow transition-colors">Cookie Policy</a></li>
+          <li><a href="#" class="hover:text-brand-yellow transition-colors">Refund Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-brand-border">
+      <div
+        class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-brand-muted">
+        <p>© <span id="year"></span> Tensorware Technologies Pvt Ltd. All rights reserved.</p>
+        <p>CIN: U72900MH2025PTC000000 · Vita Sangli, Maharashtra 415311</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+  <script>
+    /* ── Year ── */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ══════════════════════════════
+       THEME TOGGLE
+    ══════════════════════════════ */
+    (function () {
+      var html = document.documentElement;
+      var saved = localStorage.getItem('tw-theme');
+      if (saved === 'light') html.classList.add('light');
+
+      function applyTheme(light) {
+        if (light) {
+          html.classList.add('light');
+          localStorage.setItem('tw-theme', 'light');
+        } else {
+          html.classList.remove('light');
+          localStorage.setItem('tw-theme', 'dark');
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', function () {
+        var btn = document.getElementById('theme-toggle');
+        var btnMob = document.getElementById('theme-toggle-mobile');
+        if (btn) btn.addEventListener('click', function () { applyTheme(!html.classList.contains('light')); });
+        if (btnMob) btnMob.addEventListener('click', function () { applyTheme(!html.classList.contains('light')); });
+      });
+    }());
+
+    /* ── Burger / mobile menu ── */
+    var burger = document.getElementById('burger');
+    var mobileMenu = document.getElementById('mobile-menu');
+    var iconOpen = document.getElementById('icon-open');
+    var iconClose = document.getElementById('icon-close');
+
+    burger.addEventListener('click', function () {
+      mobileMenu.classList.toggle('open');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        mobileMenu.classList.remove('open');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+
+    /* ── Scroll reveal ── */
+    var revealEls = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    /* ── Counter animation ── */
+    function animateCounter(el, target, duration) {
+      duration = duration || 1400;
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(ease * target);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          var sib = el.nextSibling;
+          var pct = sib && sib.textContent && sib.textContent.trim() === '%';
+          el.textContent = target + (pct ? '' : '+');
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    var counterEls = document.querySelectorAll('[data-target]');
+    var counterIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var el = e.target;
+          animateCounter(el, parseInt(el.dataset.target, 10));
+          counterIO.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counterEls.forEach(function (el) { counterIO.observe(el); });
+
+    /* ── Contact form ── */
+    var form = document.getElementById('contact-form');
+    var statusEl = document.getElementById('form-status');
+    var submitBtn = document.getElementById('submit-btn');
+    var btnLabel = document.getElementById('btn-label');
+    var btnIcon = document.getElementById('btn-icon');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('f-name').value.trim();
+      var email = document.getElementById('f-email').value.trim();
+      var interest = document.getElementById('f-interest').value;
+      var message = document.getElementById('f-message').value.trim();
+
+      if (!name || !email || !message) {
+        statusEl.textContent = '⚠ Please fill in all required fields.';
+        statusEl.className = 'text-xs mb-4 text-red-400';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+      var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRx.test(email)) {
+        statusEl.textContent = '⚠ Please enter a valid email address.';
+        statusEl.className = 'text-xs mb-4 text-red-400';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnLabel.textContent = 'Sending…';
+      btnIcon.innerHTML = '<animate attributeName="opacity" values="1;0.4;1" dur="1s" repeatCount="indefinite"/>';
+
+      // Actual Formspree fetch
+      var data = new FormData();
+      data.append('full_name', name);
+      data.append('email', email);
+      data.append('interest', interest);
+      data.append('message', message);
+
+      fetch('https://formspree.io/f/xjgjynqr', {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
+        if (response.ok) {
+          statusEl.textContent = "✓ Message sent! We'll get back to you within 24 hours.";
+          statusEl.className = 'text-xs mb-4 text-green-400';
+          statusEl.classList.remove('hidden');
+          form.reset();
+        } else {
+          statusEl.textContent = '⚠ Oops! There was a problem sending your message.';
+          statusEl.className = 'text-xs mb-4 text-red-400';
+          statusEl.classList.remove('hidden');
+        }
+      }).catch(function (error) {
+        statusEl.textContent = '⚠ Network error. Please try again later.';
+        statusEl.className = 'text-xs mb-4 text-red-400';
+        statusEl.classList.remove('hidden');
+      }).finally(function () {
+        submitBtn.disabled = false;
+        btnLabel.textContent = 'Send Message';
+        btnIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>';
+      });
+    });
+
+    /* ── Plan selection from pricing cards ── */
+    document.querySelectorAll('.plan-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var plan = this.getAttribute('data-plan');
+        var interestSelect = document.getElementById('f-interest');
+        if (plan && interestSelect) {
+          interestSelect.value = plan;
+          // Visual feedback: briefly highlight the interest field
+          interestSelect.style.borderColor = 'var(--c-yellow)';
+          interestSelect.style.boxShadow = '0 0 0 4px rgba(90, 193, 241, 0.25)';
+          setTimeout(function () {
+            interestSelect.style.borderColor = '';
+            interestSelect.style.boxShadow = '';
+          }, 1500);
+        }
+      });
+    });
+
+    /* ── Navbar shrink on scroll ── */
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function () {
+      navbar.style.paddingTop = window.scrollY > 60 ? '10px' : '';
+      navbar.style.paddingBottom = window.scrollY > 60 ? '10px' : '';
+    }, { passive: true });
+  </script>
+
+</body>
+
+</html>
